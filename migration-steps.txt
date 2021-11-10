@@ -1,0 +1,7 @@
+Add-Migration ExpertDirectory.API.Models.ExpertDirectoryContext
+update-database
+
+Add-Migration ExpertDirectory.API.Models.ExpertDirectoryContextSeed
+update-database
+
+Remove-Migration
