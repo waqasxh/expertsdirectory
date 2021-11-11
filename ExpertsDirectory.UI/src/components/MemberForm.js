@@ -38,7 +38,7 @@ function MemberForm(props) {
 
         <div className="friendsList">
           {props.member.friends && props.member.friends.map(friend => {
-            return <a href={friend.website} target="_blank" rel="noopener" > {friend.name}  </a>
+            return <a key={friend.id} href={friend.website} rel="noopener noreferrer" target="_blank" > {friend.name}  </a>
           })}
         </div>
       </div>}
@@ -53,7 +53,6 @@ function MemberForm(props) {
 MemberForm.propTypes = {
   member: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };

@@ -24,10 +24,19 @@ function MemberList(props) {
               <td>{member.email}</td>
               <td>{member.website}</td>
               <td>{member.memberFriends.length}</td>
+
               <td>
-                <Link to={"/addfriends/" + member.id}>
-                  Add Frineds
-                </Link>
+                {(() => {
+                  if (props.mode === "AddFriends") {
+                    return <button className="btn btn-primary button" onClick={() => props.onAddFriend(member.id)}>
+                      Add as Friend
+                    </button>
+                  }
+
+                  return <Link to={"/addfriends/" + member.id}>
+                    Add Friends
+                  </Link>;
+                })()}
               </td>
             </tr>
           );
@@ -45,7 +54,8 @@ MemberList.propTypes = {
       email: PropTypes.string.isRequired,
       website: PropTypes.string.isRequired
     })
-  ).isRequired
+  ).isRequired,
+  mode: PropTypes.string.isRequired,
 };
 
 export default MemberList;

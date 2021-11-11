@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import MemberForm from "./MemberForm";
 import * as memberApi from "../api/memberApi";
 import { toast } from "react-toastify";
-import TextInput from "./common/TextInput";
 
 const MemberPage = props => {
   const [errors, setErrors] = useState({});
@@ -25,10 +24,6 @@ const MemberPage = props => {
       ...member,
       [target.name]: target.value
     });
-  }
-
-  function handleSearch({ target }) {
-
   }
 
   function formIsValid() {
@@ -63,7 +58,6 @@ const MemberPage = props => {
         member={member}
         onChange={handleChange}
         onSubmit={handleSubmit}
-        onSearch={handleSearch}
       />
     </>
   );

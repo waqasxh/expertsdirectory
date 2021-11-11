@@ -16,7 +16,7 @@ function MembersPage() {
       <Link className="btn btn-primary button" to="/member">
         Add Member
       </Link>
-      <MemberList members={members} />
+      <MemberList members={members} mode="MembersPage" />
     </>
   );
 }

@@ -22,7 +22,7 @@ function App() {
         <Route path="/about" component={AboutPage} />
         <Route path="/member/:id" component={MemberPage} />
         <Route path="/member" component={MemberPage} />
-        <Route path="/addfriends" component={AddFriends} />
+        <Route path="/addfriends/:id" component={AddFriends} />
         <Route path="/findExperts" component={FindExperts} />
         <Redirect from="/about-page" to="about" />
         <Route component={NotFoundPage} />

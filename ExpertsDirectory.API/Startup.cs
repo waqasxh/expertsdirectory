@@ -34,6 +34,7 @@ namespace ExpertDirectory.API
 
             //Add Scoped Entity Mappings
             services.AddScoped<IDataRepository<Member>, MemberRespository>();
+            services.AddScoped<IDataRepository<MemberFriend>, MemberFriendRespository>();
 
             // Add CORs - Setting to allow all for now, this should be changes to selective origins when deploying to PROD
             services.AddCors(o => o.AddPolicy("CORsPolicy", builder =>

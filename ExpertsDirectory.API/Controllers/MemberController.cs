@@ -96,7 +96,7 @@ namespace ExpertDirectory.API.Controllers
             return StatusCode(500);
         }
 
-        // PUT: api/Member/5
+        // PUT: api/member/5
         [HttpPut("{id}")]
         public IActionResult Put(long id, [FromBody] Member member)
         {
@@ -104,19 +104,20 @@ namespace ExpertDirectory.API.Controllers
             {
                 return BadRequest("Member is null.");
             }
-            Member employeeToUpdate = _dataRepository.Get(id);
-            if (employeeToUpdate == null)
+            Member memberToUpdate = _dataRepository.Get(id);
+            if (memberToUpdate == null)
             {
                 return NotFound("The Member record couldn't be found.");
             }
-            _dataRepository.Update(employeeToUpdate, member);
+            _dataRepository.Update(memberToUpdate, member);
             return NoContent();
         }
 
-        // DELETE: api/Member/5
+        // DELETE: api/member/5
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
+            //Add logic to delete Header and Friends before deleting the Member
             Member member = _dataRepository.Get(id);
             if (member == null)
             {
@@ -124,6 +125,6 @@ namespace ExpertDirectory.API.Controllers
             }
             _dataRepository.Delete(member);
             return NoContent();
-        }               
+        }
     }
 }
