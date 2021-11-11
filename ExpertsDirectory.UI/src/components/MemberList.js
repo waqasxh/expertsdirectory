@@ -10,6 +10,8 @@ function MemberList(props) {
           <th>Name</th>
           <th>Email</th>
           <th>Website</th>
+          <th>Friends</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +23,12 @@ function MemberList(props) {
               </td>
               <td>{member.email}</td>
               <td>{member.website}</td>
+              <td>{member.memberFriends.length}</td>
+              <td>
+                <Link to={"/addfriends/" + member.id}>
+                  Add Frineds
+                </Link>
+              </td>
             </tr>
           );
         })}

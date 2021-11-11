@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,12 +29,14 @@ namespace ExpertDirectory.API.Models.Repository
         public Member Get(long id)
         {
             return _expertDirectoryContext.Members
+                 .Include(x => x.MemberFriends)                 
                  .FirstOrDefault(e => e.Id == id);
         }
 
         public IEnumerable<Member> GetAll()
         {
-            return _expertDirectoryContext.Members.ToList();
+            //We are Eager Loading Frinds
+            return _expertDirectoryContext.Members.Include(x=> x.MemberFriends).ToList();
         }
 
         public void Update(Member dbEntity, Member entity)

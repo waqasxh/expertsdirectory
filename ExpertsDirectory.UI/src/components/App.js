@@ -6,6 +6,8 @@ import MembersPage from "./MembersPage";
 import { Route, Switch, Redirect } from "react-router-dom";
 import NotFoundPage from "./NotFoundPage";
 import MemberPage from "./MemberPage";
+import AddFriends from "./AddFriends";
+import FindExperts from "./FindExperts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,6 +22,8 @@ function App() {
         <Route path="/about" component={AboutPage} />
         <Route path="/member/:id" component={MemberPage} />
         <Route path="/member" component={MemberPage} />
+        <Route path="/addfriends" component={AddFriends} />
+        <Route path="/findExperts" component={FindExperts} />
         <Redirect from="/about-page" to="about" />
         <Route component={NotFoundPage} />
       </Switch>

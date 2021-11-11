@@ -2,7 +2,7 @@
 
 namespace ExpertsDirectory.API.Migrations
 {
-    public partial class AddMemberMemberHeaderandContext : Migration
+    public partial class GenerateContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,26 @@ namespace ExpertsDirectory.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Members", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MemberFriend",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MemberId = table.Column<long>(type: "bigint", nullable: false),
+                    FriendId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MemberFriend", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MemberFriend_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,22 +64,38 @@ namespace ExpertsDirectory.API.Migrations
             migrationBuilder.InsertData(
                 table: "Members",
                 columns: new[] { "Id", "Email", "Name", "Website" },
-                values: new object[] { 1L, "waqas.haneef1@gmail.com", "Waqas haneef", "www.waqashaneef.com" });
+                values: new object[] { 1L, "waqas.haneef1@gmail.com", "Waqas Haneef", "www.waqashaneef.com" });
+
+            migrationBuilder.InsertData(
+                table: "Members",
+                columns: new[] { "Id", "Email", "Name", "Website" },
+                values: new object[] { 2L, "chadeelahmed@gmail.com", "Adeel Ahmed", "www.adeelahmed.com" });
+
+            migrationBuilder.InsertData(
+                table: "MemberFriend",
+                columns: new[] { "Id", "FriendId", "MemberId" },
+                values: new object[,]
+                {
+                    { 1L, 2L, 1L },
+                    { 2L, 1L, 2L }
+                });
 
             migrationBuilder.InsertData(
                 table: "MemberHeader",
                 columns: new[] { "Id", "MemberId", "Text" },
-                values: new object[] { 1L, 1L, "Web Programming" });
+                values: new object[,]
+                {
+                    { 1L, 1L, "Web Programing" },
+                    { 2L, 1L, "Software Solutions" },
+                    { 3L, 1L, "Cloud Soultions" },
+                    { 4L, 2L, "Back-end Programing" },
+                    { 5L, 2L, "Software Solutions" }
+                });
 
-            migrationBuilder.InsertData(
-                table: "MemberHeader",
-                columns: new[] { "Id", "MemberId", "Text" },
-                values: new object[] { 2L, 1L, "Software Solutions" });
-
-            migrationBuilder.InsertData(
-                table: "MemberHeader",
-                columns: new[] { "Id", "MemberId", "Text" },
-                values: new object[] { 3L, 1L, "Cloud Soultions" });
+            migrationBuilder.CreateIndex(
+                name: "IX_MemberFriend_MemberId",
+                table: "MemberFriend",
+                column: "MemberId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MemberHeader_MemberId",
@@ -69,6 +105,9 @@ namespace ExpertsDirectory.API.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "MemberFriend");
+
             migrationBuilder.DropTable(
                 name: "MemberHeader");
 

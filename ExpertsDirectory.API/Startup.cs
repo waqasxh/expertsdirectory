@@ -43,8 +43,8 @@ namespace ExpertDirectory.API
                        .AllowAnyHeader();
             }));
 
-            //Enable Controller
-            services.AddControllers();
+            //Enable Controller - setting ReferenceLoopHandling.Ignore to use EF classes as DTOs, should be removed by adding seperate POCOs as DTOs
+            services.AddControllers().AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             //Add Swagger Support
             services.AddSwaggerGen(c =>

@@ -36,11 +36,27 @@ namespace ExpertDirectory.API.Controllers
         public IActionResult Get(long id)
         {
             Member member = _dataRepository.Get(id);
+            MemberModel memberResult = new MemberModel();
+
+            //Use utility like AutoMapper to Map thes values
+            memberResult.Id = member.Id;
+            memberResult.Email = member.Email;
+            memberResult.Name = member.Name;
+            memberResult.Website = member.Website;
+
+            memberResult.Friends = new List<Member>();
+
+            foreach (var memberFriend in member.MemberFriends)
+            {
+                Member dbFriend = _dataRepository.Get(memberFriend.FriendId);
+                memberResult.Friends.Add(dbFriend);
+            }
+
             if (member == null)
             {
                 return NotFound("The Member record couldn't be found.");
             }
-            return Ok(member);
+            return Ok(memberResult);
         }
 
         // POST: api/member
