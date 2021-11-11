@@ -35,6 +35,14 @@ namespace ExpertDirectory.API
             //Add Scoped Entity Mappings
             services.AddScoped<IDataRepository<Member>, MemberRespository>();
 
+            // Add CORs - Setting to allow all for now, this should be changes to selective origins when deploying to PROD
+            services.AddCors(o => o.AddPolicy("CORsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             //Enable Controller
             services.AddControllers();
 
@@ -57,6 +65,9 @@ namespace ExpertDirectory.API
 
             //Enable HTTPs Redirection
             app.UseHttpsRedirection();
+
+            // Enable Cors
+            app.UseCors("CORsPolicy");
 
             //Enable Routing
             app.UseRouting();            
