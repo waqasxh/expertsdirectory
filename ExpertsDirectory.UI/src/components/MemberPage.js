@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const MemberPage = props => {
   const [errors, setErrors] = useState({});
   const [member, setMember] = useState({
-    memberId: 0,
+    id: 0,
     name: "",
     email: "",
     website: ""
@@ -44,12 +44,15 @@ const MemberPage = props => {
     memberApi.saveMember(member).then(() => {
       props.history.push("/members");
       toast.success("Member saved sucessfully.");
+    }).catch(() => {
+      props.history.push("/members");
+      toast.error("Error saving member.");
     });
   }
 
   return (
     <>
-      <h2>{member.memberId ? "Manage" : "Add"} Member</h2>
+      <h2>{member.id ? "Manage" : "Add"} Member</h2>
       <MemberForm
         errors={errors}
         member={member}

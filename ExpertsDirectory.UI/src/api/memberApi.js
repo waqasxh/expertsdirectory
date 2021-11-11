@@ -21,8 +21,8 @@ export function getMemberById(id) {
 }
 
 export function saveMember(member) {
-  return fetch(baseUrl + (member.memberId ? ("/" + member.memberId) : ""), {
-    method: member.memberId ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
+  return fetch(baseUrl + (member.id ? ("/" + member.id) : ""), {
+    method: member.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
       ...member
@@ -32,8 +32,8 @@ export function saveMember(member) {
     .catch(handleError);
 }
 
-export function deleteMember(memberId) {
-  return fetch(baseUrl + memberId, { method: "DELETE" })
+export function deleteMember(id) {
+  return fetch(baseUrl + id, { method: "DELETE" })
     .then(handleResponse)
     .catch(handleError);
 }

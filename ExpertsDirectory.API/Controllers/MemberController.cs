@@ -1,5 +1,6 @@
 ﻿using ExpertDirectory.API.Models;
 using ExpertDirectory.API.Models.Repository;
+using ExpertsDirectory.API.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,7 +25,7 @@ namespace ExpertDirectory.API.Controllers
 
         // GET: api/member
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             IEnumerable<Member> members = _dataRepository.GetAll();
             return Ok(members);
@@ -44,17 +45,39 @@ namespace ExpertDirectory.API.Controllers
 
         // POST: api/member
         [HttpPost]
-        public IActionResult Post([FromBody] Member member)
+        public async Task<IActionResult> Post([FromBody] Member member)
         {
             if (member == null)
             {
                 return BadRequest("Member is null.");
             }
-            _dataRepository.Add(member);
-            return CreatedAtRoute(
-                  "Get",
-                  new { Id = member.MemberId },
-                  member);
+            
+            //This scrapping task should be moved to some backgroud worker service
+            try
+            {
+                WebScrapper webScrapper = new WebScrapper();
+                var memberHeaders = await webScrapper.RetrieveHeaders(member.Website);
+
+                List<MemberHeader> newMemberHeaders = new List<MemberHeader>();
+
+                foreach(string memberHeader in memberHeaders)
+                {
+                    newMemberHeaders.Add(new MemberHeader() { Text = memberHeader });
+                }
+
+                member.MemberHeaders = newMemberHeaders;
+
+                _dataRepository.Add(member);
+
+                return CreatedAtRoute("Get", new { Id = member.Id }, member);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Post Error with Exception: " + ex.ToString() + " and StackTrace: " + ex.StackTrace);
+            }
+
+
+            return StatusCode(500);
         }
 
         // PUT: api/Member/5
@@ -85,6 +108,6 @@ namespace ExpertDirectory.API.Controllers
             }
             _dataRepository.Delete(member);
             return NoContent();
-        }
+        }               
     }
 }

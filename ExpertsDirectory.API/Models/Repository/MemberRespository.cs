@@ -28,7 +28,7 @@ namespace ExpertDirectory.API.Models.Repository
         public Member Get(long id)
         {
             return _expertDirectoryContext.Members
-                 .FirstOrDefault(e => e.MemberId == id);
+                 .FirstOrDefault(e => e.Id == id);
         }
 
         public IEnumerable<Member> GetAll()

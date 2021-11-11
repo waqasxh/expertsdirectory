@@ -15,9 +15,9 @@ function MemberList(props) {
       <tbody>
         {props.members.map(member => {
           return (
-            <tr key={member.memberId}>
+            <tr key={member.id}>
               <td>
-                <Link to={"/member/" + member.memberId}>{member.name}</Link>
+                <Link to={"/member/" + member.id}>{member.name}</Link>
               </td>
               <td>{member.email}</td>
               <td>{member.website}</td>
@@ -32,7 +32,7 @@ function MemberList(props) {
 MemberList.propTypes = {
   members: PropTypes.arrayOf(
     PropTypes.shape({
-      memberId: PropTypes.number.isRequired,
+      id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       website: PropTypes.string.isRequired

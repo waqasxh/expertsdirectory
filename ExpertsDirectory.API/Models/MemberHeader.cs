@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace ExpertDirectory.API.Models
 {
-    public class Member
+    public class MemberHeader
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string Website { get; set; }       
-        public string Email { get; set; }
+        public long Id { get; set; }        
+        public string Text { get; set; }
 
-        public ICollection<MemberHeader> MemberHeaders { get; set; }
+        public long MemberId { get; set; }
+        public Member Member { get; set; }
     }
 }

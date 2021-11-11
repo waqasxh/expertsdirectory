@@ -1,3 +1,4 @@
--validations
--react ui
--loging/logout
+-validations - front-end/back-end
+-unit-testing
+-file based logging
+-login/logout
