@@ -32,6 +32,18 @@ export function saveMember(member) {
     .catch(handleError);
 }
 
+export function addFriend(member, friendId) {
+  return fetch(baseUrl + (member.id ? ("/" + member.id) : ""), {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      ...member
+    })
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
 export function deleteMember(id) {
   return fetch(baseUrl + id, { method: "DELETE" })
     .then(handleResponse)

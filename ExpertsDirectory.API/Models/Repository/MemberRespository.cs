@@ -28,9 +28,12 @@ namespace ExpertDirectory.API.Models.Repository
 
         public Member Get(long id)
         {
-            return _expertDirectoryContext.Members
-                 .Include(x => x.MemberFriends)                 
-                 .FirstOrDefault(e => e.Id == id);
+            return _expertDirectoryContext.Members.Include(x => x.MemberFriends).FirstOrDefault(e => e.Id == id);
+        }
+
+        public Member Get(long id, string query)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Member> GetAll()
@@ -45,6 +48,6 @@ namespace ExpertDirectory.API.Models.Repository
             dbEntity.Website = entity.Website;
             dbEntity.Email = entity.Email;            
             _expertDirectoryContext.SaveChanges();
-        }
+        }        
     }
 }

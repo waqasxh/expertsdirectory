@@ -9,6 +9,7 @@ namespace ExpertDirectory.API.Models.Repository
     {
         IEnumerable<TEntity> GetAll();
         TEntity Get(long id);
+        TEntity Get(long id, string query);
         void Add(TEntity entity);
         void Update(TEntity dbEntity, TEntity entity);
         void Delete(TEntity entity);

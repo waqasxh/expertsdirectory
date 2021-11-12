@@ -21,22 +21,27 @@ namespace ExpertDirectory.API.Models.Repository
             _expertDirectoryContext.SaveChanges();
         }
 
-        void IDataRepository<MemberFriend>.Delete(MemberFriend entity)
+        public void Delete(MemberFriend entity)
         {
             throw new NotImplementedException();
         }
 
-        MemberFriend IDataRepository<MemberFriend>.Get(long id)
+        public MemberFriend Get(long id)
         {
             throw new NotImplementedException();
         }
 
-        IEnumerable<MemberFriend> IDataRepository<MemberFriend>.GetAll()
+        public MemberFriend Get(long id, string query)
         {
             throw new NotImplementedException();
         }
 
-        void IDataRepository<MemberFriend>.Update(MemberFriend dbEntity, MemberFriend entity)
+        public IEnumerable<MemberFriend> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(MemberFriend dbEntity, MemberFriend entity)
         {
             throw new NotImplementedException();
         }
